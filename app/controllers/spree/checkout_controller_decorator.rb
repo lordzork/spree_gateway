@@ -33,7 +33,7 @@ module Spree
 
     private
     def confirm_skrill
-      return unless (params[:state] == "payment") && params[:order][:payments_attributes]
+      return unless (params[:state] == "payment") && params[:order].present? && params[:order][:payments_attributes]
 
       payment_method = PaymentMethod.find(params[:order][:payments_attributes].first[:payment_method_id])
       if payment_method.kind_of?(BillingIntegration::Skrill::QuickCheckout)
